@@ -4,9 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hello World!</Text>
-      <Text>How are you?</Text>
-      <Text>I'm feeling blue!</Text>
+      <Text style={styles.red}>Hello World!</Text>
+      <Text style={styles.bigBlue}>How are you?</Text>
+      <Text style={[styles.red, styles.bigBlue]}>I'm feeling blue!</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -25,15 +25,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  bigRed: {
-    color: 'red',
-    fontSize: 30,
-  },
-
-  bigBlueBold: {
+  bigBlue: {
     color: 'blue',
     fontSize: 30,
-    fontWeight: '600',
   },
 
 });

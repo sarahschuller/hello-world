@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
 
 export default class App extends React.Component {
  constructor(props) {
@@ -17,6 +17,12 @@ export default class App extends React.Component {
          placeholder='Type here ...'
        />
        <Text>You wrote: {this.state.text}</Text>
+       <Button
+          onPress={() => {
+            this.alertMyText({text: this.state.text});
+          }}
+          title="Press Me"
+        />
      </View>
    );
  }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 
 export default class HelloWorld extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{width: 60, height: 60, backgroundColor: 'purple'}}></View>
+        <View style={{width: 160, height: 60, backgroundColor: 'purple'}}></View>
         <View style={styles.box2}></View>
         <View style={styles.box3}></View>
       </View>

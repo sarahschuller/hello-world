@@ -7,6 +7,7 @@ export default function App() {
       <Text style={styles.red}>Hello World!</Text>
       <Text style={styles.bigBlue}>How are you?</Text>
       <Text style={[styles.red, styles.bigBlue]}>I'm feeling blue!</Text>
+      <View style={styles.box}></View>
       <StatusBar style="auto" />
     </View>
   );
@@ -29,5 +30,11 @@ const styles = StyleSheet.create({
     color: 'blue',
     fontSize: 30,
   },
+
+  box: {
+    width: 60,
+    height: 60,
+    backgroundColor: 'blue',
+  }
 
 });

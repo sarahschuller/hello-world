@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 
-export default class Screen1 extends React.Component {
+export default class Start extends React.Component {
   render() {
     return (
       <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>Hello Screen1!</Text>
+        <Text>Hello Start</Text>
         <Button
-          title="Go to Screen 2"
+          title="Go to Chat"
           onPress={() => this.props.navigation.navigate('Screen2')}
         />
       </View>

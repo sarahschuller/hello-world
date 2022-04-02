@@ -1,7 +1,6 @@
-// Import stylesheet component
 import { StyleSheet } from "react-native";
 
-// Import the screens
+// import the screens
 import Start from "./components/Start";
 import Chat from "./components/Chat";
 
@@ -13,27 +12,35 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 
-// Create the navigator
+// create navigator
 const Stack = createStackNavigator();
 
 export default class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Start">
-          <Stack.Screen name="Start" component={Start} />
-          <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Navigator 
+        initialRouteName="Start">
+
+          <Stack.Screen 
+          name="Start" 
+          component={Start} />
+
+          <Stack.Screen 
+          name="Chat" 
+          component={Chat} />
+
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
 
-// Stylesheet
+// style sheet at the bottom
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "yellow",
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },

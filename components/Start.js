@@ -1,6 +1,6 @@
 import React from "react";
 
-// Importing a lot of React Native functionalities!
+// Import react native components
 import {
   StyleSheet,
   View,
@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-// Importing the default background image from the assets folder
+// Importing the background image from the assets folder
 import BackgroundImage from "../assets/background-image.png";
 
 export default class Start extends React.Component {
@@ -24,7 +24,7 @@ export default class Start extends React.Component {
     };
   }
 
-  // function to update the state with the new background color for Chat Screen chosen by the user
+  // function to update the state with user selected chat screen color
   changeBgColor = (newColor) => {
     this.setState({ bgColor: newColor });
   };
@@ -38,7 +38,7 @@ export default class Start extends React.Component {
 
   render() {
     return (
-      // Components to create the color arrays, titles and the app's colors
+      // Components to create the color arrays, titles and the chat colors
       <View style={styles.container}>
         <ImageBackground
           source={BackgroundImage}
@@ -66,7 +66,7 @@ export default class Start extends React.Component {
               </Text>
             </View>
 
-            {/* All the colors to change the background are here! */}
+            {/* Available chat screen colors for user to select from */}
             <View style={styles.colorArray}>
 
               <TouchableOpacity
@@ -130,7 +130,7 @@ export default class Start extends React.Component {
   }
 }
 
-// Creating the app's stylesheet, fixing sizes, centering items, changing colors
+// Create stylesheet for the app
 const styles = StyleSheet.create({
   container: {
     flex: 1,

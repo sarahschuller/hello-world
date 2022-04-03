@@ -28,7 +28,8 @@ export class Chat extends React.Component {
       ],
     })
   } 
-
+  
+  // function called when a user sends a message
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),

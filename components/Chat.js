@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Platform, KeyboardAvoidingView } from 'react-native';
 
 // import Gifted Chat library
 import { GiftedChat } from 'react-native-gifted-chat';
@@ -54,7 +54,6 @@ export default class Chat extends React.Component {
 
     return (
       <GiftedChat
-        renderBubble={this.renderBubble.bind(this)}
         messages={this.state.messages}
         onSend={(messages) => this.onSend(messages)}
         user={{

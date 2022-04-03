@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Platform, KeyboardAvoidingView } from 'react-native';
 
-// import Gifted Chat library
-import { GiftedChat } from 'react-native-gifted-chat';
+// Import GiftChat library
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+
 
 export default class Chat extends React.Component {
+
   constructor(){
     super();
     this.state = {
@@ -13,11 +15,13 @@ export default class Chat extends React.Component {
   }
 
   componentDidMount() {
+    const name = this.props.route.params.name;
+
     this.setState({
       messages: [
         {
           _id: 1,
-          text: 'Hello developer',
+          text: 'Hello Developer!',
           createdAt: new Date(),
           user: {
             _id: 2,
@@ -25,44 +29,61 @@ export default class Chat extends React.Component {
             avatar: 'https://placeimg.com/140/140/any',
           },
         },
-
-        // System Message
         {
           _id: 2,
-          text: 'This is a system message',
+          text: name + ' ' + 'has joined the chat!',
           createdAt: new Date(),
           system: true,
-        },
+         },
       ],
     })
-  } 
+  }
 
-  // function called when a user sends a message
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }))
   }
 
-  render() {
+  renderBubble(props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: '#757083'
+          },
+          left: {
+            backgroundColor: '#e2e5e9'
+          }
+        }}
+      />
+    )
+  }
 
-    //User desired name appears at top of screen
+  render() {
+    //Updates name on chat screen
     let name = this.props.route.params.name;
     this.props.navigation.setOptions({ title: name});
 
+    //changes bgcolor on chat screen
     const { bgColor } = this.props.route.params;
 
     return (
-      <View>
-      <GiftedChat
-        messages={this.state.messages}
-        onSend={(messages) => this.onSend(messages)}
-        user={{
-          _id: 1,
-        }}
-      />
-      {/* Android Keyboard Avoiding fix */}
-      { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
+      <View style={{flex: 1,
+      backgroundColor: bgColor
+      }}>
+        <GiftedChat
+          renderBubble={this.renderBubble.bind(this)}
+          messages={this.state.messages}
+          onSend={messages => this.onSend(messages)}
+          user={{
+            _id: 1,
+          }}
+        />
+        {Platform.OS === "android" ? (
+          <KeyboardAvoidingView behavior="height" />
+        ) : null}
       </View>
     );
   }

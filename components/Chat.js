@@ -71,9 +71,12 @@ export default class Chat extends React.Component {
     const { bgColor } = this.props.route.params;
 
     return (
+      // Outerview to enclose GiftedChat
       <View style={{flex: 1,
       backgroundColor: bgColor
       }}>
+
+        {/* Gifted Chat Render */}
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
           messages={this.state.messages}
@@ -82,10 +85,12 @@ export default class Chat extends React.Component {
             _id: 1,
           }}
         />
+
         {/* Fixes Keyboard Avoiding View for Android devices */}
         {Platform.OS === "android" ? (
           <KeyboardAvoidingView behavior="height" />
         ) : null}
+
       </View>
     );
   }

@@ -53,6 +53,7 @@ export default class Chat extends React.Component {
     const { bgColor } = this.props.route.params;
 
     return (
+      <View>
       <GiftedChat
         messages={this.state.messages}
         onSend={(messages) => this.onSend(messages)}
@@ -60,6 +61,9 @@ export default class Chat extends React.Component {
           _id: 1,
         }}
       />
+      {/* Android Keyboard Avoiding fix */}
+      { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
+      </View>
     );
   }
 }

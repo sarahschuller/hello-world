@@ -44,7 +44,8 @@ export default class Chat extends React.Component {
       messages: GiftedChat.append(previousState.messages, messages),
     }))
   }
-
+  
+// function to change color of chat bubbles
   renderBubble(props) {
     return (
       <Bubble

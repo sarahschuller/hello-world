@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
+// import Gifted Chat library
+import { GiftedChat } from 'react-native-gifted-chat';
+
 export default class Chat extends React.Component {
   render() {
 

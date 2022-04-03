@@ -28,7 +28,7 @@ export class Chat extends React.Component {
       ],
     })
   } 
-  
+
   // function called when a user sends a message
   onSend(messages = []) {
     this.setState(previousState => ({
@@ -45,14 +45,13 @@ export class Chat extends React.Component {
     const { bgColor } = this.props.route.params;
 
     return (
-      <View style={{
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        backgroundColor: bgColor
-        }}>
-        <Text>Hello Chat!</Text>
-      </View>
-    )
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={(messages) => this.onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+      />
+    );
   }
 }

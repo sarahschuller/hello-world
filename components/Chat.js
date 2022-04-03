@@ -4,7 +4,14 @@ import { View, Text } from 'react-native';
 // import Gifted Chat library
 import { GiftedChat } from 'react-native-gifted-chat';
 
-export default class Chat extends React.Component {
+export class Chat extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      messages: [],
+    }
+  }
+  
   render() {
 
     //User desired name appears at top of screen

@@ -81,6 +81,7 @@ export default class Chat extends React.Component {
             _id: 1,
           }}
         />
+        {/* Fixes Keyboard Avoiding View for Android devices */}
         {Platform.OS === "android" ? (
           <KeyboardAvoidingView behavior="height" />
         ) : null}

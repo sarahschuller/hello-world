@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Platform, KeyboardAvoidingView } from 'react-native';
 
-// Import GiftChat library
+// Import GiftedChat library
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
 
@@ -44,7 +44,7 @@ export default class Chat extends React.Component {
       messages: GiftedChat.append(previousState.messages, messages),
     }))
   }
-  
+
 // function to change color of chat bubbles
   renderBubble(props) {
     return (

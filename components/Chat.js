@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 // import Gifted Chat library
 import { GiftedChat } from 'react-native-gifted-chat';
 
-export class Chat extends React.Component {
+export default class Chat extends React.Component {
   constructor(){
     super();
     this.state = {
@@ -24,6 +24,14 @@ export class Chat extends React.Component {
             name: 'React Native',
             avatar: 'https://placeimg.com/140/140/any',
           },
+        },
+
+        // System Message
+        {
+          _id: 2,
+          text: 'This is a system message',
+          createdAt: new Date(),
+          system: true,
         },
       ],
     })
@@ -46,6 +54,7 @@ export class Chat extends React.Component {
 
     return (
       <GiftedChat
+        renderBubble={this.renderBubble.bind(this)}
         messages={this.state.messages}
         onSend={(messages) => this.onSend(messages)}
         user={{

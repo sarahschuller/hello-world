@@ -8,25 +8,39 @@ import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import * as firebase from 'firebase';
 import "firebase/firestore";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyDFOHNAcSgeXNibwIAF__NcFCqRNV4jY0Y",
+  authDomain: "chat-app-7c061.firebaseapp.com",
+  projectId: "chat-app-7c061",
+  storageBucket: "chat-app-7c061.appspot.com",
+  messagingSenderId: "788217019301",
+  appId: "1:788217019301:web:5393e211b4bedf3d85464c",
+  measurementId: "G-ZMQBKQJ99W"
+};
+
 export default class Chat extends React.Component {
 
   constructor(){
     super();
     this.state = {
       messages: [],
+      uid: 0,
       user: {
         _id: "",
         name: "",
       }
     };
 
+    // initialize firebase
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
 
+    // reference firestore messages collection
     this.referenceChatMessages = firebase.firestore().collection("messages");
   }
 
+  // check for collection updates and set state with current data
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
     // go through each document
@@ -42,31 +56,26 @@ export default class Chat extends React.Component {
     });
   }
     
-
   componentDidMount() {
-    const name = this.props.route.params.name;
+    // Set the page title once Chat is loaded
+    let { name } = this.props.route.params
+    // Adds the name to top of screen
+    this.props.navigation.setOptions({ title: name })
 
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello Developer!',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-        {
-          _id: 2,
-          text: name + ' ' + 'has joined the chat!',
-          createdAt: new Date(),
-          system: true,
-         },
-      ],
-    })
-  }
+    this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          firebase.auth().signInAnonymously();
+        }
+        this.setState({
+          uid: user.uid,
+          messages: [],
+        });
+        this.unsubscribe = this.referenceChatMessages
+          .orderBy("createdAt", "desc")
+          .onSnapshot(this.onCollectionUpdate);
+      });
+    }
+
 
   onSend(messages = []) {
     this.setState(previousState => ({

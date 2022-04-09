@@ -76,12 +76,30 @@ export default class Chat extends React.Component {
       });
     }
 
+    // add messages to collection/chat
+    addMessages() {
+      const message = this.state.messages[0];
+      this.referenceChatMessages.add({
+        _id: message._id,
+        text: message.text || "",
+        createdAt: message.createdAt,
+        user: this.state.user,
+        image: message.image || "",
+        location: message.location || null,
+      });
+    }
 
-  onSend(messages = []) {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }))
-  }
+    // when a message is sent, append in GiftedChat and add to collection
+    onSend(messages = []) {
+      this.setState(
+        (previousState) => ({
+          messages: GiftedChat.append(previousState.messages, messages),
+        }),
+        () => {
+          this.addMessages();
+        }
+      );
+    }
 
 // function to change color of chat bubbles
   renderBubble(props) {

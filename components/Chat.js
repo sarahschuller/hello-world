@@ -4,6 +4,9 @@ import { View, Platform, KeyboardAvoidingView } from 'react-native';
 // Import GiftedChat library
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
+// Import firebase/firestore
+import * as firebase from 'firebase';
+import "firebase/firestore";
 
 export default class Chat extends React.Component {
 

@@ -73,6 +73,11 @@ export default class Chat extends React.Component {
     // Adds the name to top of screen
     this.props.navigation.setOptions({ title: name })
 
+    // listens for collection updates
+    this.unsubscribe = this.referenceChatMessages
+          .orderBy("createdAt", "desc")
+          .onSnapshot(this.onCollectionUpdate);
+
     this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
         if (!user) {
           firebase.auth().signInAnonymously();
@@ -80,10 +85,12 @@ export default class Chat extends React.Component {
         this.setState({
           uid: user.uid,
           messages: [],
+          user: {
+            _id: user.uid,
+            name: name,
+            avatar: 'https://placeimg.com/140/140/any',
+          },
         });
-        this.unsubscribe = this.referenceChatMessages
-          .orderBy("createdAt", "desc")
-          .onSnapshot(this.onCollectionUpdate);
       });
     }
 
@@ -180,7 +187,9 @@ export default class Chat extends React.Component {
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
-            _id: 1,
+            _id: this.state.user._id,
+            name: this.state.name,
+            avatar: this.state.user.avatar,
           }}
         />
 

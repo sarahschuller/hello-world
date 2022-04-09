@@ -5,8 +5,9 @@ import { View, Platform, KeyboardAvoidingView } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
 // Import firebase/firestore
-import * as firebase from 'firebase';
-import "firebase/firestore";
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDFOHNAcSgeXNibwIAF__NcFCqRNV4jY0Y",
@@ -28,7 +29,9 @@ export default class Chat extends React.Component {
       user: {
         _id: "",
         name: "",
-      }
+        avatar: "",
+      },
+      isConnected: false,
     };
 
     // initialize firebase
@@ -38,6 +41,7 @@ export default class Chat extends React.Component {
 
     // reference firestore messages collection
     this.referenceChatMessages = firebase.firestore().collection("messages");
+    this.refMsgsUser = null;
   }
 
   // check for collection updates and set state with current data
@@ -121,6 +125,7 @@ export default class Chat extends React.Component {
           user: {
             _id: data.user._id,
             name: data.user.name,
+            avatar: data.user.avatar,
           },
           image: data.image || null,
           location: data.location || null,

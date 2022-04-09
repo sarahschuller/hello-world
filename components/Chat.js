@@ -101,6 +101,29 @@ export default class Chat extends React.Component {
       );
     }
 
+    // function called when messages collection is updated
+    onCollectionUpdate = (querySnapshot) => {
+      const messages = [];
+      // check each of the documents for data
+      querySnapshot.forEach((doc) => {
+        let data = doc.data();
+        messages.push({
+          _id: data._id,
+          text: data.text,
+          createdAt: data.createdAt.toDate(),
+          user: {
+            _id: data.user._id,
+            name: data.user.name,
+          },
+          image: data.image || null,
+          location: data.location || null,
+        });
+      });
+      this.setState({
+        messages: messages,
+      });
+    };
+
 // function to change color of chat bubbles
   renderBubble(props) {
     return (

@@ -22,7 +22,7 @@ const firebaseConfig = {
   storageBucket: "chat-app-7c061.appspot.com",
   messagingSenderId: "788217019301",
   appId: "1:788217019301:web:5393e211b4bedf3d85464c",
-  measurementId: "G-ZMQBKQJ99W"
+  measurementId: "G-ZMQBKQJ99W" 
 };
 
 export default class Chat extends React.Component {

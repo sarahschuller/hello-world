@@ -121,6 +121,15 @@ export default class Chat extends React.Component {
     // Adds the name to top of screen
     this.props.navigation.setOptions({ title: name })
 
+    // NetInfo property to tell if data should be fetched from asyncStore or Firestore
+    NetInfo.fetch().then(connection => {
+      if (connection.isConnected) {
+        console.log('online');
+      } else {
+        console.log('offline');
+      }
+    });
+
     // load messages from async storage
     this.getMessages();
 

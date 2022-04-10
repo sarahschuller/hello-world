@@ -76,6 +76,9 @@ export default class Chat extends React.Component {
     // Adds the name to top of screen
     this.props.navigation.setOptions({ title: name })
 
+    // load messages from async storage
+    this.getMessages();
+
     // listens for collection updates
     this.unsubscribe = this.referenceChatMessages
           .orderBy("createdAt", "desc")

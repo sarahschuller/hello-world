@@ -9,6 +9,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
+// Import AsyncStorage
+import AsyncStorage from '@react-native-community/async-storage';
+
 const firebaseConfig = {
   apiKey: "AIzaSyDFOHNAcSgeXNibwIAF__NcFCqRNV4jY0Y",
   authDomain: "chat-app-7c061.firebaseapp.com",

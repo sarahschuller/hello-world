@@ -82,6 +82,14 @@ export default class Chat extends React.Component {
     }
   };
 
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }), () => {
+      this.saveMessages();
+    });
+  }
+
   componentDidMount() {
     // Set the page title once Chat is loaded
     let { name } = this.props.route.params

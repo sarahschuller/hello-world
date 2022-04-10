@@ -60,6 +60,18 @@ export default class Chat extends React.Component {
     }
   }
 
+  async getMessages() {
+    let messages = '';
+    try {
+      messages = await AsyncStorage.getItem('messages') || [];
+      this.setState({
+        messages: JSON.parse(messages)
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  
   // check for collection updates and set state with current data
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
@@ -82,18 +94,6 @@ export default class Chat extends React.Component {
       messages:messages,
     });
   }
-    
-  async getMessages() {
-    let messages = '';
-    try {
-      messages = await AsyncStorage.getItem('messages') || [];
-      this.setState({
-        messages: JSON.parse(messages)
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   // when message is sent, save to local storage
   onSend(messages = []) {

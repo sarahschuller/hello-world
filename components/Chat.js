@@ -71,7 +71,19 @@ export default class Chat extends React.Component {
       console.log(error.message);
     }
   };
-  
+
+   // delete messages from local storage
+   async deleteMessages() {
+    try {
+      await AsyncStorage.removeItem('messages');
+      this.setState({
+        messages: []
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   // check for collection updates and set state with current data
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
@@ -104,56 +116,54 @@ export default class Chat extends React.Component {
     });
   }
 
-  // delete messages from local storage
-  async deleteMessages() {
-    try {
-      await AsyncStorage.removeItem('messages');
-      this.setState({
-        messages: []
-      })
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
   componentDidMount() {
     // Set the page title once Chat is loaded
-    let { name } = this.props.route.params
+    let { name } = this.props.route.params;
     // Adds the name to top of screen
-    this.props.navigation.setOptions({ title: name })
+    this.props.navigation.setOptions({ title: name });
 
     // NetInfo property to tell if data should be fetched from asyncStore or Firestore
-    NetInfo.fetch().then(connection => {
+    NetInfo.fetch().then((connection) => {
       if (connection.isConnected) {
-        console.log('online');
-      } else {
-        console.log('offline');
-      }
-    });
-
-    // load messages from async storage
-    this.getMessages();
-
-    // listens for collection updates
-    this.unsubscribe = this.referenceChatMessages
+        this.setState({ isConnected: true });
+        console.log("online");
+        // Checks for collection updates
+        this.unsubscribe = this.referenceChatMessages
           .orderBy("createdAt", "desc")
           .onSnapshot(this.onCollectionUpdate);
 
-    this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
-        if (!user) {
-          firebase.auth().signInAnonymously();
-        }
-        this.setState({
-          uid: user.uid,
-          messages: [],
-          user: {
-            _id: user.uid,
-            name: name,
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        });
-      });
-    }
+        this.authUnsubscribe = firebase
+          .auth()
+          .onAuthStateChanged(async (user) => {
+            if (!user) {
+              await firebase.auth().signInAnonymously();
+            }
+
+            this.setState({
+              uid: user.uid,
+              messages: [],
+              user: {
+                _id: user.uid,
+                name: name,
+                avatar: "https://placeimg.com/140/140/any",
+              },
+            });
+
+            // Load user's messages from Firestore
+            this.refMsgsUser = firebase
+              .firestore()
+              .collection("messages")
+              .where("uid", "==", this.state.uid);
+          });
+        this.saveMessages();
+      } else {
+        // If the user is offline
+        this.setState({ isConnected: false });
+        console.log("offline");
+        this.getMessages();
+      }
+    });
+  }
 
     componentWillUnmount() {
         // stop listening to authentication

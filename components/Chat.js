@@ -60,9 +60,9 @@ export default class Chat extends React.Component {
   }
 
   async getMessages() {
-    let messages = '';
+    let messages = "";
     try {
-      messages = await AsyncStorage.getItem('messages') || [];
+      messages = (await AsyncStorage.getItem('messages')) || [];
       this.setState({
         messages: JSON.parse(messages)
       });
@@ -159,6 +159,7 @@ export default class Chat extends React.Component {
         // If the user is offline
         this.setState({ isConnected: false });
         console.log("offline");
+        // retrieve chat messages for asyncStorage
         this.getMessages();
       }
     });
@@ -266,6 +267,7 @@ export default class Chat extends React.Component {
         {/* Gifted Chat Render */}
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
+          renderInputToolbar={this.renderInputToolbar.bind(this)}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{

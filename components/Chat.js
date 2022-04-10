@@ -51,6 +51,15 @@ export default class Chat extends React.Component {
     this.refMsgsUser = null;
   }
 
+  // save message data to local storage 
+  async saveMessages() {
+    try {
+      await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   // check for collection updates and set state with current data
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
@@ -93,15 +102,6 @@ export default class Chat extends React.Component {
     }), () => {
       this.saveMessages();
     });
-  }
-
-  // save message data to local storage 
-  async saveMessages() {
-    try {
-      await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
-    } catch (error) {
-      console.log(error.message);
-    }
   }
 
   // delete messages from local storage

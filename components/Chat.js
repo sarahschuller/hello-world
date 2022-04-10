@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Import NetInfo
 import NetInfo from '@react-native-community/netinfo';
 
+// Firebase configuration info
 const firebaseConfig = {
   apiKey: "AIzaSyDFOHNAcSgeXNibwIAF__NcFCqRNV4jY0Y",
   authDomain: "chat-app-7c061.firebaseapp.com",

@@ -70,6 +70,18 @@ export default class Chat extends React.Component {
     });
   }
     
+  async getMessages() {
+    let messages = '';
+    try {
+      messages = await AsyncStorage.getItem('messages') || [];
+      this.setState({
+        messages: JSON.parse(messages)
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   componentDidMount() {
     // Set the page title once Chat is loaded
     let { name } = this.props.route.params

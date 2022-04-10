@@ -227,6 +227,18 @@ export default class Chat extends React.Component {
     )
   }
 
+  // Render default InpputToolbar when the user is online
+  renderInputToolbar(props) {
+    if (this.state.isConnected == false) {
+    } else {
+      return(
+        <InputToolbar
+        {...props}
+        />
+      );
+    }
+  }
+
   render() {
     //Updates name on chat screen
     let name = this.props.route.params.name;

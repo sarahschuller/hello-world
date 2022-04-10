@@ -10,7 +10,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 // Import AsyncStorage
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import NetInfo
 import NetInfo from '@react-native-community/netinfo';

@@ -82,6 +82,7 @@ export default class Chat extends React.Component {
     }
   };
 
+  // when message is sent, save to local storage
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
@@ -90,9 +91,22 @@ export default class Chat extends React.Component {
     });
   }
 
+  // save message data to local storage 
   async saveMessages() {
     try {
       await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  // delete messages from local storage
+  async deleteMessages() {
+    try {
+      await AsyncStorage.removeItem('messages');
+      this.setState({
+        messages: []
+      })
     } catch (error) {
       console.log(error.message);
     }

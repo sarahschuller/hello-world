@@ -5,9 +5,8 @@ import { View, Platform, KeyboardAvoidingView } from 'react-native';
 import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 
 // Import firebase/firestore
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import * as firebase from "firebase";
+import "firebase/firestore";
 
 // Import AsyncStorage
 import AsyncStorage from "@react-native-async-storage/async-storage";

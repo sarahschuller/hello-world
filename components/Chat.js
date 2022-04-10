@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Platform, KeyboardAvoidingView } from 'react-native';
 
 // Import GiftedChat library
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 
 // Import firebase/firestore
 import firebase from 'firebase/app';
@@ -238,7 +238,7 @@ export default class Chat extends React.Component {
     )
   }
 
-  // Render default InpputToolbar when the user is online
+  // Render default InputToolbar when the user is online
   renderInputToolbar(props) {
     if (this.state.isConnected == false) {
     } else {

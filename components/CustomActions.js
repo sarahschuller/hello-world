@@ -9,6 +9,27 @@ import "firebase/firestore";
 
 export default class CustomActions extends React.Component {
 
+    // Select an image from the user device gallery
+    pickImage = async () => {
+        // permission to access the user device's gallery
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        try {
+          if (status === "granted") {
+            let result = await ImagePicker.launchImageLibraryAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            }).catch((error) => {
+              console.error(error);
+            });
+            if (!result.cancelled) {
+              const imageUrl = await this.uploadImage(result.uri);
+              this.props.onSend({ image: imageUrl });
+            }
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
     onActionPress = () => {
         const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
         const cancelButtonIndex = options.length - 1;
@@ -66,3 +87,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
     },
    });
+
+   CustomActions.contextTypes = {
+    actionSheet: PropTypes.func,
+   };

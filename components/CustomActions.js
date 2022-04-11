@@ -20,6 +20,7 @@ render() {
   }
 }
 
+// Stylesheet for render
 const styles = StyleSheet.create({
     container: {
       width: 26,

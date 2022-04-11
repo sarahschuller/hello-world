@@ -224,6 +224,11 @@ export default class Chat extends React.Component {
     }
   }
 
+  // Render Custom Actions component
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
   render() {
     //Updates name on chat screen
     let name = this.props.route.params.name;

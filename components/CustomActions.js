@@ -7,3 +7,16 @@ import * as Location from "expo-location";
 import firebase from "firebase";
 import "firebase/firestore";
 
+export default class CustomActions extends React.Component {
+
+render() {
+    return (
+      <TouchableOpacity style={[styles.container]} onPress={this.onActionPress}>
+        <View style={[styles.wrapper, this.props.wrapperStyle]}>
+          <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
+}

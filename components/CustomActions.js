@@ -79,34 +79,70 @@ export default class CustomActions extends React.Component {
     return await snapshot.ref.getDownloadURL();
    };
 
-
-    onActionPress = () => {
-        const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
-        const cancelButtonIndex = options.length - 1;
-        this.context.actionSheet().showActionSheetWithOptions(
-            {
-            options,
-        cancelButtonIndex,
-        },
-        async (buttonIndex) => {
-        switch (buttonIndex) {
-            case 0:
-            console.log('user wants to pick an image');
-            return this.pickImage();
-            case 1:
-            console.log('user wants to take a photo');
-            return this.takePhoto();
-            case 2:
-            console.log('user wants to get their location');
-            default:
+   // Get user's location and send in chat
+   getLocation = async () => {
+    // permission to access user location while the app is in the foreground
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    try {
+      if (status === "granted") {
+        let result = await Location.getCurrentPositionAsync({}).catch(
+          (error) => {
+            console.error(error);
+          }
+        );
+        // Send latitude and longitude to locate the position on the map
+        if (result) {
+          this.props.onSend({
+            location: {
+              longitude: result.coords.longitude,
+              latitude: result.coords.latitude,
+            },
+          });
         }
-        },
-      );
-    };
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-render() {
+  onActionPress = () => {
+    const options = [
+      "Choose From Library",
+      "Take Picture",
+      "Send Location",
+      "Cancel",
+    ];
+    const cancelButtonIndex = options.length - 1;
+    this.context.actionSheet().showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      async (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            console.log("user wants to pick an image");
+            return this.pickImage();
+          case 1:
+            console.log("user wants to take a photo");
+            return this.takePhoto();
+          case 2:
+            console.log("user wants to get their location");
+            return this.getLocation();
+        }
+      }
+    );
+  };
+
+  render() {
     return (
-      <TouchableOpacity style={[styles.container]} onPress={this.onActionPress}>
+      <TouchableOpacity
+        accessible={true}
+        accessibilityLabel="More options"
+        accessibilityHint="Let’s you choose to send an image or your geolocation."
+        style={[styles.container]}
+        onPress={this.onActionPress}
+      >
         <View style={[styles.wrapper, this.props.wrapperStyle]}>
           <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
         </View>
@@ -114,6 +150,10 @@ render() {
     );
   }
 }
+
+CustomActions.contextTypes = {
+    actionSheet: PropTypes.func,
+  };
 
 // Stylesheet for render
 const styles = StyleSheet.create({

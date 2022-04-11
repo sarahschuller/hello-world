@@ -141,6 +141,15 @@ export default class Chat extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    if (this.state.isConnected) {
+      // stop listening to authentication
+      this.authUnsubscribe();
+      // stop listening for changes
+      this.unsubscribe();
+    }
+  }
+
   // Add new message to the collection
   addMessages() {
     const message = this.state.messages[0];
@@ -179,15 +188,6 @@ export default class Chat extends React.Component {
     });
     this.saveMessages();
   };
-
-  componentWillUnmount() {
-    if (this.state.isConnected) {
-      // stop listening to authentication
-      this.authUnsubscribe();
-      // stop listening for changes
-      this.unsubscribe();
-    }
-  }
 
   // Sent messages are appended in GiftedChat and added to the collection
   onSend(messages = []) {

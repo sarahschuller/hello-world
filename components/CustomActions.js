@@ -30,6 +30,27 @@ export default class CustomActions extends React.Component {
         }
       };
 
+    // Use device camera to take a photo
+      takePhoto = async () => {
+        // permission to access user camera
+        const { status } = await ImagePicker.requestCameraPermissionsAsync();
+        try {
+          if (status === "granted") {
+            let result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.All,
+            }).catch((error) => {
+              console.error(error);
+            });
+            if (!result.cancelled) {
+              const imageUrl = await this.uploadImage(result.uri);
+              this.props.onSend({ image: imageUrl });
+            }
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
     onActionPress = () => {
         const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
         const cancelButtonIndex = options.length - 1;
@@ -45,7 +66,7 @@ export default class CustomActions extends React.Component {
             return this.pickImage();
             case 1:
             console.log('user wants to take a photo');
-            return;
+            return this.takePhoto();
             case 2:
             console.log('user wants to get their location');
             default:

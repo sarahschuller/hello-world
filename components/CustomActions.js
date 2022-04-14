@@ -12,24 +12,22 @@ export default class CustomActions extends React.Component {
 
     // Select an image from the user device gallery
     pickImage = async () => {
-        // permission to access the user device's gallery
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        try {
-          if (status === "granted") {
-            let result = await ImagePicker.launchImageLibraryAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            }).catch((error) => {
-              console.error(error);
-            });
+      // first ask user for permission to access their media library
+      const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+      try {
+        if (status === 'granted') {
+          let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images
+          }).catch(err => console.log(err));
             if (!result.cancelled) {
-              const imageUrl = await this.uploadImage(result.uri);
-              this.props.onSend({ image: imageUrl });
-            }
+            const imageUrl = await this.uploadImage(result.uri);
+            this.props.onSend({ image: imageUrl });
           }
-        } catch (error) {
-          console.error(error);
         }
-      };
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
     // Use device camera to take a photo
       takePhoto = async () => {

@@ -2,6 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import { CAMERA } from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import firebase from "firebase";
@@ -33,23 +34,23 @@ export default class CustomActions extends React.Component {
     // Use device camera to take a photo
       takePhoto = async () => {
         // permission to access user camera
-        const { status } = await ImagePicker.requestCameraPermissionsAsync();
+        const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.MEDIA_LIBRARY_WRITE_ONLY);
+
         try {
-          if (status === "granted") {
+          if (status === 'granted') {
             let result = await ImagePicker.launchCameraAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.All,
-            }).catch((error) => {
-              console.error(error);
-            });
+              mediaTypes: ImagePicker.MediaTypeOptions.Images
+            }).catch(err => console.log(err));
+    
             if (!result.cancelled) {
               const imageUrl = await this.uploadImage(result.uri);
               this.props.onSend({ image: imageUrl });
             }
           }
-        } catch (error) {
-          console.error(error);
+        } catch (err) {
+          console.error(err);
         }
-      };
+      }
 
     // Upload image to Firestore database
     uploadImageFetch = async (uri) => {

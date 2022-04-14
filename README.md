@@ -24,5 +24,24 @@
 <h3>Tech Used</h3>
 <ul>
   <li>React Native</li>
+  <li> Node.js</li>
   <li>Expo</li>
+  <li>Firebase</li>
+  <li>Android Studio - optional</li>
+</ul>
+
+<h3>App Setup</h3>
+<ul>
+  <li>Download this repository</li>
+  <li>In your CLI, navigate to the project's root directory</li>
+  <li>Install all dependencies by running "npm install"</li>
+  <li>Setup Firebase</li>
+ </ul>
+
+<h3>Running the App</h3>
+<ul>
+  <li>Launch the local server by navigating to the root directory and running "expo start" or "npm start" in the terminal</li>
+  <li>Expo will start the app</li>
+  <li>To launch the project on your physical device, ensure that the Expo Go app is installed. Open the Expo Go app and use the "Scan QR Code" function to scan the QR code provided in the terminal.</li>
+  <li>The project can be opened using an emulator (ie. Android Studio) from within the terminal (by typing "a" if using Android Studio)</li>
 </ul>

@@ -1,33 +1,32 @@
-// Imports
-import React from "react";
 import PropTypes from "prop-types";
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
-import * as Permissions from 'expo-permissions';
-import * as ImagePicker from 'expo-image-picker';
-import * as Location from 'expo-location';
-import firebase from "firebase";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+import * as Location from "expo-location";
+import * as firebase from "firebase";
 import "firebase/firestore";
 
 export default class CustomActions extends React.Component {
-
-    // Select an image from the user device gallery
-    pickImage = async () => {
-      // first ask user for permission to access their media library
-      const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-      try {
-        if (status === 'granted') {
-          let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images
-          }).catch(err => console.log(err));
-            if (!result.cancelled) {
-            const imageUrl = await this.uploadImage(result.uri);
-            this.props.onSend({ image: imageUrl });
-          }
+  pickImage = async () => {
+    /// Permission to access library
+    const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+    try {
+      if (status === "granted") {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        }).catch((error) => {
+          console.error(error);
+        });
+        if (!result.cancelled) {
+          const imageUrl = await this.uploadImage(result.uri);
+          this.props.onSend({ image: imageUrl });
         }
-      } catch (err) {
-        console.error(err);
       }
+    } catch (error) {
+      console.error(error);
     }
+  };
 
     // Use device camera to take a photo
       takePhoto = async () => {

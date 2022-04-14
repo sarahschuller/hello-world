@@ -17,6 +17,8 @@ import NetInfo from '@react-native-community/netinfo';
 // Import Custom Actions
 import CustomActions from "./CustomActions";
 
+import MapView from 'react-native-maps';
+
 // Firebase configuration info
 const firebaseConfig = {
   apiKey: "AIzaSyDFOHNAcSgeXNibwIAF__NcFCqRNV4jY0Y",

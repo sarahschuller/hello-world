@@ -45,3 +45,9 @@
   <li>To launch the project on your physical device, ensure that the Expo Go app is installed. Open the Expo Go app and use the "Scan QR Code" function to scan the QR code provided in the terminal.</li>
   <li>The project can be opened using an emulator (ie. Android Studio) from within the terminal (by typing "a" if using Android Studio)</li>
 </ul>
+
+<div>
+<img src="https://github.com/sarahschuller/hello-world/blob/master/Screenshot_20220502-124953_Gallery.jpg" height="600">
+<img src="https://github.com/sarahschuller/hello-world/blob/master/Screenshot_20220502-125104_Gallery.jpg" height="600">
+<img src="https://github.com/sarahschuller/hello-world/blob/master/Screenshot_20220502-125115_Gallery.jpg" height="600">
+</div>
